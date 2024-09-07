@@ -21,5 +21,13 @@ public class CustomPlayerAim  : Editor
         
         Handles.DrawLine(center,center+ viewAngleA * aim.viewRadius);
         Handles.DrawLine(center,center+ viewAngleB * aim.viewRadius);
+
+
+        Handles.color = Color.red;
+
+        foreach (Transform trm in aim.visibleTargets)
+        {
+            Handles.DrawLine(center,trm.position);
+        }
     }
 }
