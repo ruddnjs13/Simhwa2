@@ -2,8 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting.Antlr3.Runtime;
 using UnityEngine;
+using BehaviorDesigner.Runtime;
 
 public class Enemy : MonoBehaviour
 {
@@ -30,3 +30,13 @@ public class Enemy : MonoBehaviour
         return default;
     }
 }
+
+public class SharedEnemy : SharedVariable<Enemy>
+{
+    public static implicit operator SharedEnemy(Enemy value)
+    {
+        return new SharedEnemy { Value = value };
+    }
+}
+
+

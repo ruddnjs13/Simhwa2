@@ -7,16 +7,22 @@ using Vector3 = UnityEngine.Vector3;
 public class CheckRange : Conditional
 {
     public SharedTransform target;
-    public float radius = 5f;
+    public SharedEnemy enemy;
+    
+    private EnemyDataSO _enemyData;
+
+    public override void OnAwake()
+    {
+        _enemyData = enemy.Value.enemyData;
+    }
 
     public override TaskStatus OnUpdate()
     {
         Vector3 playerPosition = target.Value.position;
         Vector3 myPosition = transform.position;
-
         Vector3 direction = playerPosition - myPosition;
 
-        if (direction.magnitude < radius)
+        if (direction.magnitude < _enemyData.range)
         {
             return TaskStatus.Success;
         }
@@ -24,5 +30,11 @@ public class CheckRange : Conditional
         {
             return TaskStatus.Failure;
         }
+    }
+
+    public override void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, _enemyData.range);
     }
 }
